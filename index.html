@@ -8,7 +8,7 @@
 <body>
 <div class="calculator">
     <div class="calc-header">
-        <div class="calc-screen"><p id="value">0.</p></div>
+        <div class="calc-screen-container"><p id="value">0.</p></div>
     </div>
     <div class="calc-body">
         <ul>
@@ -42,7 +42,6 @@
 
   function inputSign(number) {
     formula += number;
-//				alert(formula);
     calcScreen.innerHTML = formula;
   }
 
