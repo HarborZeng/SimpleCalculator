@@ -11,27 +11,29 @@
         <div class="calc-screen-container"><p id="value">0.</p></div>
     </div>
     <div class="calc-body">
-        <ul>
-            <li class="calc-btn calc-number" onclick="inputSign(1)">1</li>
-            <li class="calc-btn calc-number" onclick="inputSign(2)">2</li>
-            <li class="calc-btn calc-number" onclick="inputSign(3)">3</li>
-            <li class="calc-btn calc-operator" onclick="inputSign('*')">*</li>
-            <li class="calc-btn calc-operator" onclick="inputSign('/')">/</li>
-            <li class="calc-btn calc-number" onclick="inputSign(4)">4</li>
-            <li class="calc-btn calc-number" onclick="inputSign(5)">5</li>
-            <li class="calc-btn calc-number" onclick="inputSign(6)">6</li>
-            <li class="calc-btn calc-operator" onclick="inputSign('+')">+</li>
-            <li class="calc-btn calc-operator" onclick="inputSign('-')">-</li>
-            <li class="calc-btn calc-number" onclick="inputSign(7)">7</li>
-            <li class="calc-btn calc-number" onclick="inputSign(8)">8</li>
-            <li class="calc-btn calc-number" onclick="inputSign(9)">9</li>
-            <li class="calc-btn calc-operator" onclick="inputSign('(')">(</li>
-            <li class="calc-btn calc-operator" onclick="inputSign(')')">)</li>
-            <li class="calc-btn calc-clear calc-operator" onclick="clearAll()">c</li>
-            <li class="calc-btn calc-number" onclick="inputSign(0)">0</li>
-            <li class="calc-btn calc-operator" onclick="inputSign('.')">.</li>
-            <li class="calc-btn calc-operator" onclick="deleteLastStr()">del</li>
-            <li class="calc-btn calc-equal calc-operator" onclick="evaluateInput()">=</li>
+        <ul id="calc-list">
+            <li class="calc-btn calc-number">1</li>
+            <li class="calc-btn calc-number">2</li>
+            <li class="calc-btn calc-number">3</li>
+            <li class="calc-btn calc-operator">*</li>
+            <li class="calc-btn calc-operator">/</li>
+            <li class="calc-btn calc-number">4</li>
+            <li class="calc-btn calc-number">5</li>
+            <li class="calc-btn calc-number">6</li>
+            <li class="calc-btn calc-operator">+</li>
+            <li class="calc-btn calc-operator">-</li>
+            <li class="calc-btn calc-number">7</li>
+            <li class="calc-btn calc-number">8</li>
+            <li class="calc-btn calc-number">9</li>
+            <li class="calc-btn calc-operator">(</li>
+            <li class="calc-btn calc-operator">)</li>
+            <li class="calc-btn calc-clear calc-operator">c</li>
+            <li class="calc-btn calc-number">0</li>
+            <li class="calc-btn calc-operator">.</li>
+            <li class="calc-btn calc-operator">del</li>
+            <li class="calc-btn calc-equal calc-operator">=</li>
+            <li class="calc-btn calc-operator">sqrt</li>
+            <li class="calc-btn calc-operator">pow</li>
         </ul>
     </div>
 </div>
@@ -40,32 +42,42 @@
   var result = '';
   var calcScreen = document.getElementById('value');
 
-  function inputSign(number) {
-    formula += number;
-    calcScreen.innerHTML = formula;
-  }
-
-  function evaluateInput() {
-    result = '';
-    try {
-      if(formula !== ''){
-        result = eval(formula);
-        calcScreen.innerHTML = result;
+  document.getElementById("calc-list")
+    .addEventListener('click', function () {
+      var innerHTML = event.target.innerHTML;
+      switch (innerHTML) {
+        case 'c':
+          formula = '';
+          calcScreen.innerHTML = '';
+          break;
+        case 'del':
+          formula = formula.substr(0, formula.length - 1);
+          calcScreen.innerHTML = formula;
+          break;
+        case '=':
+          result = '';
+          try {
+            if (formula !== '') {
+              result = eval(formula);
+              calcScreen.innerHTML = result;
+            }
+          } catch (EvalError) {
+            calcScreen.innerHTML = "式子有误！";
+          }
+          break;
+        case 'pow':
+          formula = 'Math.pow('+formula+', ';
+          calcScreen.innerHTML = formula;
+          break;
+        case 'sqrt':
+          formula = 'Math.sqrt('+formula+')';
+          calcScreen.innerHTML = formula;
+          break;
+        default:
+          formula += innerHTML;
+          calcScreen.innerHTML = formula;
       }
-    }catch (EvalError){
-      calcScreen.innerHTML = "式子有误！";
-    }
-  }
-
-  function clearAll() {
-    formula = '';
-    calcScreen.innerHTML = '';
-  }
-
-  function deleteLastStr() {
-    formula = formula.substr(0, formula.length - 1);
-    calcScreen.innerHTML = formula;
-  }
+    });
 </script>
 </body>
 </html>
