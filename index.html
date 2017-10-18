@@ -48,8 +48,10 @@
   function evaluateInput() {
     result = '';
     try {
-      result = eval(formula);
-      calcScreen.innerHTML = result;
+      if(formula !== ''){
+        result = eval(formula);
+        calcScreen.innerHTML = result;
+      }
     }catch (EvalError){
       calcScreen.innerHTML = "式子有误！";
     }
