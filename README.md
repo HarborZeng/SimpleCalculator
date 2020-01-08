@@ -54,5 +54,5 @@ calc-number		calc-operator		calc-clear				calc-equal`
 - 点击`pow`和`sqrt`，`+`上相应的`Math`代码
 
 # 四．项目部署
-[http://tellyouwhat.cn/SimpleCalculator/Calculator.html](Calculator.html)
+<http://tellyouwhat.cn/SimpleCalculator/Calculator.html>
 
